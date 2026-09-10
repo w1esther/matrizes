@@ -8,6 +8,26 @@ class Matriz(Scene):
 
         self.play(Write(titulo), run_time = 2)
 
+        def termo_matriz(p, m, n):
+            termo = MathTex(f"{p}_{{{m}{n}}}")
+            return termo
+        
+        A_generica = MobjectMatrix([
+            [termo_matriz('a', 1, 1), termo_matriz('a', 1, 2), termo_matriz('a', 1, 3)],
+            [termo_matriz('a', 2, 1), termo_matriz('a', 2, 2), termo_matriz('a', 2, 3)],
+            [termo_matriz('a', 3, 1), termo_matriz('a', 3, 2), termo_matriz('a', 3, 3)]]).shift(1*UP+5*LEFT)
+        
+        B_generica = MobjectMatrix([
+            [termo_matriz('b', 1, 1), termo_matriz('b', 1, 2), termo_matriz('b', 1, 3)],
+            [termo_matriz('b', 2, 1), termo_matriz('b', 2, 2), termo_matriz('b', 2, 3)],
+            [termo_matriz('b', 3, 1), termo_matriz('b', 3, 2), termo_matriz('b', 3, 3)]], v_buff=0.75).shift(1*UP+0.5*LEFT)
+        
+        mais2 = MathTex(r'+').shift(1*UP + 2.75*LEFT)
+        
+        self.play(FadeIn(A_generica), FadeIn(B_generica),FadeIn(mais2), run_time = 2)
+
+        self.wait(5)
+
         A = Matrix([
             [1, 2, 3],
             [4, 5, 6],
@@ -29,11 +49,11 @@ class Matriz(Scene):
 
         self.play(FadeIn(igual1))
 
-        C = Matrix([
-            ["?","?","?"],
-            ["?","?","?"],
-            ["?","?","?"]
-        ]).shift(1*UP + 4.5*RIGHT)
+        C = MobjectMatrix([
+            [termo_matriz('C', 1, 1),termo_matriz('C', 1, 2),termo_matriz('C', 1, 3)],
+            [termo_matriz('C', 2, 1),termo_matriz('C', 2, 2),termo_matriz('C', 2, 3)],
+            [termo_matriz('C', 3, 1),termo_matriz('C', 3, 2),termo_matriz('C', 3, 3)]
+        ], h_buff=1.5, v_buff=1).shift(1*UP + 4.5*RIGHT)
 
         legenda_1 = Text('Somamos os elementos que ocupam a mesma posição.', font_size=26).shift(1*DOWN)
 
@@ -74,7 +94,13 @@ class Matriz(Scene):
 
                 self.play(Create(destaque_A), Create(destaque_B), run_time = 2)
 
-                adicao_matriz = MathTex(f'{valores_A[n][i]} + {valores_B[n][i]} = {valores_C[n][i]}').shift(1*DOWN)
+                A_valor = valores_A[n][i]
+
+                B_valor = valores_B[n][i]
+
+                resultado_AB = A_valor + B_valor
+
+                adicao_matriz = MathTex(f'{A_valor} + {B_valor} = {resultado_AB}').shift(1*DOWN)
 
                 self.play(Transform(legenda_1, adicao_matriz))
 
