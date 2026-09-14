@@ -205,21 +205,30 @@ class Matriz(MovingCameraScene):
 
         self.play(FadeOut(A_generica), FadeOut(B_generica), FadeOut(mais2), FadeOut(a_11), FadeOut(C_generica), FadeOut(legenda_2), FadeOut(igual2), FadeOut(legenda_1))
 
+        valores_C = MobjectMatrix([
+            [MathTex(r"c_{11} + b_{11}"), MathTex(r"c_{12} + b_{12}"), MathTex(r"c_{13} + b_{13} + a_{13} + b_{11} + b_{11}")],
+            [MathTex(r"c_{21} + b_{11}"), MathTex(r"c_{22} + b_{11}"), MathTex(r"c_{23} + b_{11} + a_{13} + b_{11} + b_{11}")],
+            [MathTex(r"c_{31} + b_{11}"), MathTex(r"c_{32} + b_{11}"), MathTex(r"c_{33} + b_{11} + a_{13} + b_{11} + b_{11}")]
+        ],v_buff=0.75 ).shift(1*UP+4.5*RIGHT)
+
+        for entrada in valores_C.get_entries():
+            entrada.set_opacity(0)
+
         A = Matrix([
             [1, 2, 3],
             [4, 5, 6],
             [7, 3, 4]
-        ]).shift(1*UP+5*LEFT)
+        ]).shift(1*UP+6*LEFT)
 
         B = Matrix([
             [5, 3, 7],
             [2, 5, 1],
             [3, 9, 6]
-        ]).shift(1*UP + 0.5*LEFT)
+        ]).shift(1*UP + 1.5*LEFT)
 
-        mais1 = MathTex(r'+').shift(1*UP + 2.7*LEFT)
+        mais1 = MathTex(r'+').shift(1*UP + 3.7*LEFT)
 
-        self.play(FadeIn(A),FadeIn(B),FadeIn(mais1), run_time=2)
+        self.play(FadeIn(A),FadeIn(B),FadeIn(mais1), FadeIn(valores_C), run_time=2)
         self.wait(2)
 
         igual1 = MathTex(r'=').shift(1*UP + 2*RIGHT)
@@ -232,9 +241,10 @@ class Matriz(MovingCameraScene):
             [termo_matriz('C', 3, 1),termo_matriz('C', 3, 2),termo_matriz('C', 3, 3)]
         ], h_buff=1.5, v_buff=1).shift(1*UP + 4.5*RIGHT)
 
+
         self.wait(2)
 
-        self.play(FadeIn(C))
+        # self.play(FadeIn(C))
 
         valores_A = [
             [1, 2, 3],
@@ -242,51 +252,75 @@ class Matriz(MovingCameraScene):
             [7, 3, 4]
         ]
 
+        a_11_1 = MathTex(r"1").move_to(A.get_entries()[0])
+        a_12_2 = MathTex(r"2").move_to(A.get_entries()[1])
+        a_13_3 = MathTex(r"3").move_to(A.get_entries()[2])
+        a_21_4 = MathTex(r"4").move_to(A.get_entries()[3])
+        a_22_5 = MathTex(r"5").move_to(A.get_entries()[4])
+        a_23_6 = MathTex(r"6").move_to(A.get_entries()[5])
+        a_31_7 = MathTex(r"7").move_to(A.get_entries()[6])
+        a_32_3 = MathTex(r"3").move_to(A.get_entries()[7])
+        a_33_4 = MathTex(r"4").move_to(A.get_entries()[8])
+
+        termos_a = [a_11_1, a_12_2, a_13_3, a_21_4, a_22_5, a_23_6, a_31_7, a_32_3, a_33_4]
+
+        for elemento in termos_a:
+            self.add(elemento) 
+
         valores_B = [
             [5, 3, 7],
             [2, 5, 1],
             [3, 9, 6]
         ]
 
-        valores_C = [
-            [6, 5, 10],
-            [6, 10, 7],
-            [10, 12, 10]
-        ]
+        b_11_5 = MathTex(r"5").move_to(B.get_entries()[0])
+        b_12_3 = MathTex(r"3").move_to(B.get_entries()[1])
+        b_13_7 = MathTex(r"7").move_to(B.get_entries()[2])
+        b_21_2 = MathTex(r"2").move_to(B.get_entries()[3])
+        b_22_5 = MathTex(r"5").move_to(B.get_entries()[4])
+        b_23_1 = MathTex(r"1").move_to(B.get_entries()[5])
+        b_31_3 = MathTex(r"3").move_to(B.get_entries()[6])
+        b_32_9 = MathTex(r"9").move_to(B.get_entries()[7])
+        b_33_6 = MathTex(r"6").move_to(B.get_entries()[8])
 
-        for n in range(3):
-            for i in range(3):
+        termos_b = [b_11_5, b_12_3, b_13_7, b_21_2, b_22_5, b_23_1, b_31_3, b_32_9, b_33_6]
 
-                indice = (n*3+i)
+        for elemento in termos_b:
+            self.add(elemento) 
 
-                elemento_A = A.get_entries()[indice]
-                elemento_B = B.get_entries()[indice]    
+        # for n in range(3):
+        #     for i in range(3):
 
-                destaque_A = SurroundingRectangle(elemento_A, buff=0.08)
-                destaque_B = SurroundingRectangle(elemento_B, buff=0.08)
+        #         indice = (n*3+i)
 
-                self.play(Create(destaque_A), Create(destaque_B), run_time = 2)
+        #         elemento_A = A.get_entries()[indice]
+        #         elemento_B = B.get_entries()[indice]    
 
-                A_valor = valores_A[n][i]
+        #         destaque_A = SurroundingRectangle(elemento_A, buff=0.08)
+        #         destaque_B = SurroundingRectangle(elemento_B, buff=0.08)
 
-                B_valor = valores_B[n][i]
+        #         self.play(Create(destaque_A), Create(destaque_B), run_time = 2)
 
-                resultado_AB = A_valor + B_valor
+        #         A_valor = valores_A[n][i]
 
-                adicao_matriz = MathTex(f'{A_valor} + {B_valor} = {resultado_AB}').shift(1*DOWN)
+        #         B_valor = valores_B[n][i]
 
-                self.play(Transform(legenda_1, adicao_matriz))
+        #         resultado_AB = A_valor + B_valor
 
-                elemento_antigo = C.get_entries()[indice]
+        #         adicao_matriz = MathTex(f'{A_valor} + {B_valor} = {resultado_AB}').shift(1*DOWN)
 
-                resultado = valores_C[n][i]
+        #         self.play(Transform(legenda_1, adicao_matriz))
 
-                elemento_novo = MathTex(str(resultado)).move_to(elemento_antigo)
+        #         elemento_antigo = C.get_entries()[indice]
 
-                self.play(ReplacementTransform(elemento_antigo, elemento_novo))
+        #         resultado = valores_C[n][i]
 
-                self.wait(1)
+        #         elemento_novo = MathTex(str(resultado)).move_to(elemento_antigo)
 
-                self.play(FadeOut(destaque_A), FadeOut(destaque_B))
+        #         self.play(ReplacementTransform(elemento_antigo, elemento_novo))
+
+        #         self.wait(1)
+
+        #         self.play(FadeOut(destaque_A), FadeOut(destaque_B))
 
         self.wait(4)
