@@ -54,14 +54,14 @@ class Matriz(MovingCameraScene):
             [MathTex(r"c_{31} + b_{11}"), MathTex(r"c_{32} + b_{11}"), MathTex(r"c_{33} + b_{11} + a_{13} + b_{11} + b_{11}")]
         ], v_buff=0.75).shift(1*UP+4.5*RIGHT)
 
-        c_11 = MathTex("c_{11}").move_to(C_generica.get_entries()[0]).shift(1*LEFT)
-        c_12 = MathTex("c_{12}").move_to(C_generica.get_entries()[1]).shift(0.5*LEFT)
-        c_13 = MathTex("c_{13}").move_to(C_generica.get_entries()[2]).shift(1.8*RIGHT)
-        c_21 = MathTex("c_{21}").move_to(C_generica.get_entries()[3]).shift(1*LEFT)
-        c_22 = MathTex("c_{22}").move_to(C_generica.get_entries()[4]).shift(0.5*LEFT)
-        c_23 = MathTex("c_{23}").move_to(C_generica.get_entries()[5]).shift(1.8*RIGHT)
-        c_31 = MathTex("c_{31}").move_to(C_generica.get_entries()[6]).shift(1*LEFT)
-        c_32 = MathTex("c_{32}").move_to(C_generica.get_entries()[7]).shift(0.5*LEFT)
+        c_11 = MathTex("c_{11}", color=PINK).move_to(C_generica.get_entries()[0]).shift(1*LEFT)
+        c_12 = MathTex("c_{12}", color=ORANGE).move_to(C_generica.get_entries()[1]).shift(0.5*LEFT)
+        c_13 = MathTex("c_{13}", color=YELLOW).move_to(C_generica.get_entries()[2]).shift(1.8*RIGHT)
+        c_21 = MathTex("c_{21}", color=BLUE).move_to(C_generica.get_entries()[3]).shift(1*LEFT)
+        c_22 = MathTex("c_{22}", color=GREEN).move_to(C_generica.get_entries()[4]).shift(0.5*LEFT)
+        c_23 = MathTex("c_{23}", color=PURPLE).move_to(C_generica.get_entries()[5]).shift(1.8*RIGHT)
+        c_31 = MathTex("c_{31}", color=RED).move_to(C_generica.get_entries()[6]).shift(1*LEFT)
+        c_32 = MathTex("c_{32}", color=GREY).move_to(C_generica.get_entries()[7]).shift(0.5*LEFT)
         c_33 = MathTex("c_{33}").move_to(C_generica.get_entries()[8]).shift(1.8*RIGHT)
 
         for entrada in C_generica.get_entries():
@@ -70,16 +70,16 @@ class Matriz(MovingCameraScene):
         mais2 = MathTex(r'+').shift(1*UP + 4.25*LEFT)
         igual2 = MathTex(r'=').shift(1*UP+0.6*RIGHT)
 
-        mais3 = MathTex(r'+').shift(1.8*UP + 2.4*RIGHT).scale(0.7)
-        mais4 = MathTex(r'+').shift(1.8*UP + 4.5*RIGHT).scale(0.7)
-        mais5 = MathTex(r'+').shift(1.8*UP + 6.6*RIGHT).scale(0.7)
+        mais3 = MathTex(r'+', color=PINK).shift(1.8*UP + 2.4*RIGHT).scale(0.7)
+        mais4 = MathTex(r'+', color=ORANGE).shift(1.8*UP + 4.5*RIGHT).scale(0.7)
+        mais5 = MathTex(r'+', color=YELLOW).shift(1.8*UP + 6.6*RIGHT).scale(0.7)
 
-        mais6 = MathTex(r'+').shift(1*UP + 2.4*RIGHT).scale(0.7)
-        mais7 = MathTex(r'+').shift(1*UP + 4.5*RIGHT).scale(0.7)
-        mais8 = MathTex(r'+').shift(1*UP + 6.6*RIGHT).scale(0.7)
+        mais6 = MathTex(r'+', color=BLUE).shift(1*UP + 2.4*RIGHT).scale(0.7)
+        mais7 = MathTex(r'+', color=GREEN).shift(1*UP + 4.5*RIGHT).scale(0.7)
+        mais8 = MathTex(r'+', color=PURPLE).shift(1*UP + 6.6*RIGHT).scale(0.7)
 
-        mais9 = MathTex(r'+').shift(0.2*UP + 2.4*RIGHT).scale(0.7)
-        mais10 = MathTex(r'+').shift(0.2*UP + 4.5*RIGHT).scale(0.7)
+        mais9 = MathTex(r'+', color=RED).shift(0.2*UP + 2.4*RIGHT).scale(0.7)
+        mais10 = MathTex(r'+', color=GREY).shift(0.2*UP + 4.5*RIGHT).scale(0.7)
         mais11 = MathTex(r'+').shift(0.2*UP + 6.6*RIGHT).scale(0.7)
         
         self.play(FadeIn(A_generica), FadeIn(B_generica),FadeIn(mais2),FadeIn(a_11),FadeIn(C_generica),FadeIn(igual2),FadeIn(b_11), run_time = 2)
@@ -94,11 +94,11 @@ class Matriz(MovingCameraScene):
         for elemento in elementos_b:
             self.add(elemento)
 
-        self.play(a_11.animate.move_to(C_generica.get_entries()[0]).shift(1.9*LEFT), FadeIn(mais3), b_11.animate.move_to(C_generica.get_entries()[0]).shift(0.9*LEFT))
+        self.play(a_11.animate.move_to(C_generica.get_entries()[0]).shift(1.9*LEFT).set_color(PINK), FadeIn(mais3), b_11.animate.move_to(C_generica.get_entries()[0]).shift(0.9*LEFT).set_color(PINK))
 
         self.wait(1)
 
-        self.play(b_12.animate.move_to(C_generica.get_entries()[1]).shift(0.1*LEFT), a_12.animate.move_to(C_generica.get_entries()[1]).shift(1.1*LEFT), FadeIn(mais4))
+        self.play(b_12.animate.move_to(C_generica.get_entries()[1]).shift(0.1*LEFT).set_color(ORANGE), a_12.animate.move_to(C_generica.get_entries()[1]).shift(1.1*LEFT).set_color(ORANGE), FadeIn(mais4))
 
         self.wait(1)
 
@@ -109,27 +109,27 @@ class Matriz(MovingCameraScene):
         
         self.play(FadeIn(legenda_2))
 
-        self.play(b_13.animate.move_to(C_generica.get_entries()[2]).shift(2.6*RIGHT), a_13.animate.move_to(C_generica.get_entries()[2]).shift(1.6*RIGHT), FadeIn(mais5))
+        self.play(b_13.animate.move_to(C_generica.get_entries()[2]).shift(2.6*RIGHT).set_color(YELLOW), a_13.animate.move_to(C_generica.get_entries()[2]).shift(1.6*RIGHT).set_color(YELLOW), FadeIn(mais5))
 
         self.wait(1)
 
-        self.play(a_21.animate.move_to(C_generica.get_entries()[3]).shift(1.9*LEFT), b_21.animate.move_to(C_generica.get_entries()[3]).shift(0.9*LEFT), FadeIn(mais6))
+        self.play(a_21.animate.move_to(C_generica.get_entries()[3]).shift(1.9*LEFT).set_color(BLUE), b_21.animate.move_to(C_generica.get_entries()[3]).shift(0.9*LEFT).set_color(BLUE), FadeIn(mais6))
 
         self.wait(1)
 
-        self.play(b_22.animate.move_to(C_generica.get_entries()[4]).shift(0.1*LEFT), a_22.animate.move_to(C_generica.get_entries()[4]).shift(1.1*LEFT), FadeIn(mais7))
+        self.play(b_22.animate.move_to(C_generica.get_entries()[4]).shift(0.1*LEFT).set_color(GREEN), a_22.animate.move_to(C_generica.get_entries()[4]).shift(1.1*LEFT).set_color(GREEN), FadeIn(mais7))
 
         self.wait(1)
 
-        self.play(b_23.animate.move_to(C_generica.get_entries()[5]).shift(2.6*RIGHT), a_23.animate.move_to(C_generica.get_entries()[5]).shift(1.6*RIGHT), FadeIn(mais8))
+        self.play(b_23.animate.move_to(C_generica.get_entries()[5]).shift(2.6*RIGHT).set_color(PURPLE), a_23.animate.move_to(C_generica.get_entries()[5]).shift(1.6*RIGHT).set_color(PURPLE), FadeIn(mais8))
 
         self.wait(1)
 
-        self.play(a_31.animate.move_to(C_generica.get_entries()[6]).shift(1.9*LEFT), b_31.animate.move_to(C_generica.get_entries()[6]).shift(0.9*LEFT), FadeIn(mais9))
+        self.play(a_31.animate.move_to(C_generica.get_entries()[6]).shift(1.9*LEFT).set_color(RED), b_31.animate.move_to(C_generica.get_entries()[6]).shift(0.9*LEFT).set_color(RED), FadeIn(mais9))
 
         self.wait(1)
 
-        self.play(b_32.animate.move_to(C_generica.get_entries()[7]).shift(0.1*LEFT), a_32.animate.move_to(C_generica.get_entries()[7]).shift(1.1*LEFT), FadeIn(mais10))
+        self.play(b_32.animate.move_to(C_generica.get_entries()[7]).shift(0.1*LEFT).set_color(GREY), a_32.animate.move_to(C_generica.get_entries()[7]).shift(1.1*LEFT).set_color(GREY), FadeIn(mais10))
 
         self.wait(1)
 
@@ -231,7 +231,7 @@ class Matriz(MovingCameraScene):
         self.play(FadeIn(A),FadeIn(B),FadeIn(mais1), FadeIn(valores_C), run_time=2)
         self.wait(2)
 
-        igual1 = MathTex(r'=').shift(1*UP + 2*RIGHT)
+        igual1 = MathTex(r'=').shift(1*UP + 0.8*RIGHT)
 
         self.play(FadeIn(igual1))
 
@@ -288,6 +288,124 @@ class Matriz(MovingCameraScene):
         for elemento in termos_b:
             self.add(elemento) 
 
+        mais3_1 = MathTex(r'+', color=PINK).shift(1.8*UP + 2.4*RIGHT).scale(0.7)
+        mais4_1 = MathTex(r'+', color=ORANGE).shift(1.8*UP + 4.5*RIGHT).scale(0.7)
+        mais5_1 = MathTex(r'+', color=YELLOW).shift(1.8*UP + 6.6*RIGHT).scale(0.7)
+
+        mais6_1 = MathTex(r'+', color=BLUE).shift(1*UP + 2.4*RIGHT).scale(0.7)
+        mais7_1 = MathTex(r'+', color=GREEN).shift(1*UP + 4.5*RIGHT).scale(0.7)
+        mais8_1 = MathTex(r'+', color=PURPLE).shift(1*UP + 6.6*RIGHT).scale(0.7)
+
+        mais9_1 = MathTex(r'+', color=RED).shift(0.2*UP + 2.4*RIGHT).scale(0.7)
+        mais10_1 = MathTex(r'+',color=GREY).shift(0.2*UP + 4.5*RIGHT).scale(0.7)
+        mais11_1 = MathTex(r'+').shift(0.2*UP + 6.6*RIGHT).scale(0.7)
+
+        self.play(a_11_1.animate.move_to(valores_C.get_entries()[0]).shift(1.9*LEFT).set_color(PINK), FadeIn(mais3_1), b_11_5.animate.move_to(valores_C.get_entries()[0]).shift(0.9*LEFT).set_color(PINK))
+
+        self.wait(1)
+
+        self.play(b_12_3.animate.move_to(valores_C.get_entries()[1]).shift(0.1*LEFT).set_color(ORANGE), a_12_2.animate.move_to(valores_C.get_entries()[1]).shift(1.1*LEFT).set_color(ORANGE), FadeIn(mais4_1))
+
+        self.wait(1)
+
+        self.play(b_13_7.animate.move_to(valores_C.get_entries()[2]).shift(2.6*RIGHT).set_color(YELLOW), a_13_3.animate.move_to(valores_C.get_entries()[2]).shift(1.6*RIGHT).set_color(YELLOW), FadeIn(mais5_1))
+
+        self.wait(1)
+
+        self.play(a_21_4.animate.move_to(valores_C.get_entries()[3]).shift(1.9*LEFT).set_color(BLUE), b_21_2.animate.move_to(valores_C.get_entries()[3]).shift(0.9*LEFT).set_color(BLUE), FadeIn(mais6_1))
+
+        self.wait(1)
+
+        self.play(b_22_5.animate.move_to(valores_C.get_entries()[4]).shift(0.1*LEFT).set_color(GREEN), a_22_5.animate.move_to(valores_C.get_entries()[4]).shift(1.1*LEFT).set_color(GREEN), FadeIn(mais7_1))
+
+        self.wait(1)
+
+        self.play(b_23_1.animate.move_to(valores_C.get_entries()[5]).shift(2.6*RIGHT).set_color(PURPLE), a_23_6.animate.move_to(valores_C.get_entries()[5]).shift(1.6*RIGHT).set_color(PURPLE), FadeIn(mais8_1))
+
+        self.wait(1)
+
+        self.play(a_31_7.animate.move_to(valores_C.get_entries()[6]).shift(1.9*LEFT).set_color(RED), b_31_3.animate.move_to(C_generica.get_entries()[6]).shift(0.9*LEFT).set_color(RED), FadeIn(mais9_1))
+
+        self.wait(1)
+
+        self.play(b_32_9.animate.move_to(valores_C.get_entries()[7]).shift(0.1*LEFT).set_color(GREY), a_32_3.animate.move_to(valores_C.get_entries()[7]).shift(1.1*LEFT).set_color(GREY), FadeIn(mais10_1))
+
+        self.wait(1)
+
+        self.play(b_33_6.animate.move_to(valores_C.get_entries()[8]).shift(2.6*RIGHT), a_33_4.animate.move_to(valores_C.get_entries()[8]).shift(1.6*RIGHT), FadeIn(mais11_1))
+
+        c_11_1 = MathTex("6", color=PINK).move_to(C_generica.get_entries()[0]).shift(1*LEFT)
+        c_12_1 = MathTex("5", color=ORANGE).move_to(C_generica.get_entries()[1]).shift(0.5*LEFT)
+        c_13_1 = MathTex("10", color=YELLOW).move_to(C_generica.get_entries()[2]).shift(1.8*RIGHT)
+        c_21_1 = MathTex("6", color=BLUE).move_to(C_generica.get_entries()[3]).shift(1*LEFT)
+        c_22_1 = MathTex("10", color=GREEN).move_to(C_generica.get_entries()[4]).shift(0.5*LEFT)
+        c_23_1 = MathTex("7", color=PURPLE).move_to(C_generica.get_entries()[5]).shift(1.8*RIGHT)
+        c_31_1 = MathTex("10", color=RED).move_to(C_generica.get_entries()[6]).shift(1*LEFT)
+        c_32_1 = MathTex("12", color=GREY).move_to(C_generica.get_entries()[7]).shift(0.5*LEFT)
+        c_33_1 = MathTex("10").move_to(C_generica.get_entries()[8]).shift(1.8*RIGHT)
+
+        grupo_11_1 = VGroup()
+        grupo_11_1.add(a_11_1, b_11_5, mais3_1)
+
+        self.play(Transform(grupo_11_1, c_11_1))
+
+        self.wait(1)
+
+        grupo_12_1 = VGroup()
+        grupo_12_1.add(a_12_2, b_12_3, mais4_1)
+
+        self.play(Transform(grupo_12_1, c_12_1))
+
+        self.wait(1)
+
+        grupo_13_1 = VGroup()
+        grupo_13_1.add(a_13_3, b_13_7, mais5_1)
+
+        self.play(Transform(grupo_13_1, c_13_1))
+
+        self.wait(1)
+
+        grupo_21_1 = VGroup()
+        grupo_21_1.add(a_21_4, b_21_2, mais6_1)
+
+        self.play(Transform(grupo_21_1, c_21_1))
+
+        self.wait(1)
+
+        grupo_22_1 = VGroup()
+        grupo_22_1.add(a_22_5, b_22_5, mais7_1)
+
+        self.play(Transform(grupo_22_1, c_22_1))
+
+        self.wait(1)
+
+        grupo_23_1 = VGroup()
+        grupo_23_1.add(a_23_6, b_23_1, mais8_1)
+
+        self.play(Transform(grupo_23_1, c_23_1))
+
+        self.wait(1)
+
+        grupo_31_1 = VGroup()
+        grupo_31_1.add(a_31_7, b_31_3, mais9_1)
+
+        self.play(Transform(grupo_31_1, c_31_1))
+
+        self.wait(1)
+
+        grupo_32_1 = VGroup()
+        grupo_32_1.add(a_32_3, b_32_9, mais10_1)
+
+        self.play(Transform(grupo_32_1, c_32_1))
+
+        self.wait(1)
+
+        grupo_33_1 = VGroup()
+        grupo_33_1.add(a_33_4, b_33_6, mais11_1)
+
+        self.play(Transform(grupo_33_1, c_33_1))
+
+        self.wait(2)
         # for n in range(3):
         #     for i in range(3):
 
