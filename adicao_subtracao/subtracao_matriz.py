@@ -1,12 +1,12 @@
 from manim import *
 import numpy as np
 
-class Matriz(MovingCameraScene):
+class MatrizSubtracao(MovingCameraScene):
     def construct(self):
 
         self.play(self.camera.frame.animate.scale(1.5))
 
-        titulo = Text('Soma de Matrizes', font_size=32).shift(3*UP)
+        titulo = Text('Subtração de Matrizes', font_size=32).shift(3*UP)
 
         self.play(Write(titulo), run_time = 2)
 
@@ -49,9 +49,9 @@ class Matriz(MovingCameraScene):
         elementos_b = [b_12, b_13, b_22, b_23, b_31, b_32, b_33]
         
         C_generica = MobjectMatrix([
-            [MathTex(r"c_{11} + b_{11}"), MathTex(r"c_{12} + b_{12}"), MathTex(r"c_{13} + b_{13} + a_{13} + b_{11} + b_{11}")],
-            [MathTex(r"c_{21} + b_{11}"), MathTex(r"c_{22} + b_{11}"), MathTex(r"c_{23} + b_{11} + a_{13} + b_{11} + b_{11}")],
-            [MathTex(r"c_{31} + b_{11}"), MathTex(r"c_{32} + b_{11}"), MathTex(r"c_{33} + b_{11} + a_{13} + b_{11} + b_{11}")]
+            [MathTex(r"c_{11} - b_{11}"), MathTex(r"c_{12} - b_{12}"), MathTex(r"c_{13} - b_{13} + a_{13} + b_{11} + b_{11}")],
+            [MathTex(r"c_{21} - b_{11}"), MathTex(r"c_{22} - b_{11}"), MathTex(r"c_{23} - b_{11} + a_{13} + b_{11} + b_{11}")],
+            [MathTex(r"c_{31} - b_{11}"), MathTex(r"c_{32} - b_{11}"), MathTex(r"c_{33} - b_{11} + a_{13} + b_{11} + b_{11}")]
         ], v_buff=0.75).shift(1*UP+4.5*RIGHT)
 
         c_11 = MathTex("c_{11}", color=PINK).move_to(C_generica.get_entries()[0]).shift(1*LEFT)
@@ -67,24 +67,24 @@ class Matriz(MovingCameraScene):
         for entrada in C_generica.get_entries():
             entrada.set_opacity(0)
         
-        mais2 = MathTex(r'+').shift(1*UP + 4.25*LEFT)
+        mais2 = MathTex(r'-').shift(1*UP + 4.25*LEFT)
         igual2 = MathTex(r'=').shift(1*UP+0.6*RIGHT)
 
-        mais3 = MathTex(r'+', color=PINK).shift(1.8*UP + 2.4*RIGHT).scale(0.7)
-        mais4 = MathTex(r'+', color=ORANGE).shift(1.8*UP + 4.5*RIGHT).scale(0.7)
-        mais5 = MathTex(r'+', color=YELLOW).shift(1.8*UP + 6.6*RIGHT).scale(0.7)
+        mais3 = MathTex(r'-', color=PINK).shift(1.8*UP + 2.4*RIGHT).scale(0.7)
+        mais4 = MathTex(r'-', color=ORANGE).shift(1.8*UP + 4.5*RIGHT).scale(0.7)
+        mais5 = MathTex(r'-', color=YELLOW).shift(1.8*UP + 6.6*RIGHT).scale(0.7)
 
-        mais6 = MathTex(r'+', color=BLUE).shift(1*UP + 2.4*RIGHT).scale(0.7)
-        mais7 = MathTex(r'+', color=GREEN).shift(1*UP + 4.5*RIGHT).scale(0.7)
-        mais8 = MathTex(r'+', color=PURPLE).shift(1*UP + 6.6*RIGHT).scale(0.7)
+        mais6 = MathTex(r'-', color=BLUE).shift(1*UP + 2.4*RIGHT).scale(0.7)
+        mais7 = MathTex(r'-', color=GREEN).shift(1*UP + 4.5*RIGHT).scale(0.7)
+        mais8 = MathTex(r'-', color=PURPLE).shift(1*UP + 6.6*RIGHT).scale(0.7)
 
-        mais9 = MathTex(r'+', color=RED).shift(0.2*UP + 2.4*RIGHT).scale(0.7)
-        mais10 = MathTex(r'+', color=GREY).shift(0.2*UP + 4.5*RIGHT).scale(0.7)
-        mais11 = MathTex(r'+').shift(0.2*UP + 6.6*RIGHT).scale(0.7)
+        mais9 = MathTex(r'-', color=RED).shift(0.2*UP + 2.4*RIGHT).scale(0.7)
+        mais10 = MathTex(r'-', color=GREY).shift(0.2*UP + 4.5*RIGHT).scale(0.7)
+        mais11 = MathTex(r'-').shift(0.2*UP + 6.6*RIGHT).scale(0.7)
         
         self.play(FadeIn(A_generica), FadeIn(B_generica),FadeIn(mais2),FadeIn(a_11),FadeIn(C_generica),FadeIn(igual2),FadeIn(b_11), run_time = 2)
 
-        legenda_1 = Text('Somamos os elementos que ocupam a mesma posição.', font_size=26).shift(1.5*DOWN)
+        legenda_1 = Text('Subtraímos os elementos que ocupam a mesma posição.', font_size=26).shift(1.5*DOWN)
 
         self.play(Write(legenda_1), run_time = 2)
 
@@ -103,11 +103,14 @@ class Matriz(MovingCameraScene):
         self.wait(1)
 
         legenda_2 = Tex(
-            r"A adição de matrizes é uma operação matematicamente definida",
+            r"A subtração de matrizes é uma operação matematicamente definida",
             r" se, e somente se, as matrizes envolvidas forem de mesma ordem $m \times n$."
             r" Isso significa que elas precisam ter o mesmo número de linhas e o mesmo número de colunas.").scale(0.7).shift(3.0*DOWN)
         
-        self.play(FadeIn(legenda_2))
+        legenda_3 = Tex(r"A subtração de matrizes não é comutativa, o que significa",
+                        r" que a ordem das matrizes altera o resultado final.").scale(0.7).shift(4.5*DOWN)
+        
+        self.play(FadeIn(legenda_2), FadeIn(legenda_3))
 
         self.play(b_13.animate.move_to(C_generica.get_entries()[2]).shift(2.6*RIGHT).set_color(YELLOW), a_13.animate.move_to(C_generica.get_entries()[2]).shift(1.6*RIGHT).set_color(YELLOW), FadeIn(mais5))
 
@@ -203,7 +206,7 @@ class Matriz(MovingCameraScene):
         for grupo in grupos:
             self.remove(grupo)
 
-        self.play(FadeOut(A_generica), FadeOut(B_generica), FadeOut(mais2), FadeOut(a_11), FadeOut(C_generica), FadeOut(legenda_2), FadeOut(igual2), FadeOut(legenda_1))
+        self.play(FadeOut(A_generica), FadeOut(B_generica), FadeOut(mais2), FadeOut(a_11), FadeOut(C_generica), FadeOut(legenda_2), FadeOut(igual2), FadeOut(legenda_1), FadeOut(legenda_3))
 
         valores_C = MobjectMatrix([
             [MathTex(r"c_{11} + b_{11}"), MathTex(r"c_{12} + b_{12}"), MathTex(r"c_{13} + b_{13} + a_{13} + b_{11} + b_{11}")],
@@ -226,7 +229,7 @@ class Matriz(MovingCameraScene):
             [3, 9, 6]
         ]).shift(1*UP + 1.5*LEFT)
 
-        mais1 = MathTex(r'+').shift(1*UP + 3.7*LEFT)
+        mais1 = MathTex(r'-').shift(1*UP + 3.7*LEFT)
 
         self.play(FadeIn(A),FadeIn(B),FadeIn(mais1), FadeIn(valores_C), run_time=2)
         self.wait(2)
@@ -288,17 +291,17 @@ class Matriz(MovingCameraScene):
         for elemento in termos_b:
             self.add(elemento) 
 
-        mais3_1 = MathTex(r'+', color=PINK).shift(1.8*UP + 2.4*RIGHT).scale(0.7)
-        mais4_1 = MathTex(r'+', color=ORANGE).shift(1.8*UP + 4.5*RIGHT).scale(0.7)
-        mais5_1 = MathTex(r'+', color=YELLOW).shift(1.8*UP + 6.6*RIGHT).scale(0.7)
+        mais3_1 = MathTex(r'-', color=PINK).shift(1.8*UP + 2.4*RIGHT).scale(0.7)
+        mais4_1 = MathTex(r'-', color=ORANGE).shift(1.8*UP + 4.5*RIGHT).scale(0.7)
+        mais5_1 = MathTex(r'-', color=YELLOW).shift(1.8*UP + 6.6*RIGHT).scale(0.7)
 
-        mais6_1 = MathTex(r'+', color=BLUE).shift(1*UP + 2.4*RIGHT).scale(0.7)
-        mais7_1 = MathTex(r'+', color=GREEN).shift(1*UP + 4.5*RIGHT).scale(0.7)
-        mais8_1 = MathTex(r'+', color=PURPLE).shift(1*UP + 6.6*RIGHT).scale(0.7)
+        mais6_1 = MathTex(r'-', color=BLUE).shift(1*UP + 2.4*RIGHT).scale(0.7)
+        mais7_1 = MathTex(r'-', color=GREEN).shift(1*UP + 4.5*RIGHT).scale(0.7)
+        mais8_1 = MathTex(r'-', color=PURPLE).shift(1*UP + 6.6*RIGHT).scale(0.7)
 
-        mais9_1 = MathTex(r'+', color=RED).shift(0.2*UP + 2.4*RIGHT).scale(0.7)
-        mais10_1 = MathTex(r'+',color=GREY).shift(0.2*UP + 4.5*RIGHT).scale(0.7)
-        mais11_1 = MathTex(r'+').shift(0.2*UP + 6.6*RIGHT).scale(0.7)
+        mais9_1 = MathTex(r'-', color=RED).shift(0.2*UP + 2.4*RIGHT).scale(0.7)
+        mais10_1 = MathTex(r'-',color=GREY).shift(0.2*UP + 4.5*RIGHT).scale(0.7)
+        mais11_1 = MathTex(r'-').shift(0.2*UP + 6.6*RIGHT).scale(0.7)
 
         self.play(a_11_1.animate.move_to(valores_C.get_entries()[0]).shift(1.9*LEFT).set_color(PINK), FadeIn(mais3_1), b_11_5.animate.move_to(valores_C.get_entries()[0]).shift(0.9*LEFT).set_color(PINK))
 
@@ -334,15 +337,15 @@ class Matriz(MovingCameraScene):
 
         self.play(b_33_6.animate.move_to(valores_C.get_entries()[8]).shift(2.6*RIGHT), a_33_4.animate.move_to(valores_C.get_entries()[8]).shift(1.6*RIGHT), FadeIn(mais11_1))
 
-        c_11_1 = MathTex("6", color=PINK).move_to(C_generica.get_entries()[0]).shift(1*LEFT)
-        c_12_1 = MathTex("5", color=ORANGE).move_to(C_generica.get_entries()[1]).shift(0.5*LEFT)
-        c_13_1 = MathTex("10", color=YELLOW).move_to(C_generica.get_entries()[2]).shift(1.8*RIGHT)
-        c_21_1 = MathTex("6", color=BLUE).move_to(C_generica.get_entries()[3]).shift(1*LEFT)
-        c_22_1 = MathTex("10", color=GREEN).move_to(C_generica.get_entries()[4]).shift(0.5*LEFT)
-        c_23_1 = MathTex("7", color=PURPLE).move_to(C_generica.get_entries()[5]).shift(1.8*RIGHT)
-        c_31_1 = MathTex("10", color=RED).move_to(C_generica.get_entries()[6]).shift(1*LEFT)
-        c_32_1 = MathTex("12", color=GREY).move_to(C_generica.get_entries()[7]).shift(0.5*LEFT)
-        c_33_1 = MathTex("10").move_to(C_generica.get_entries()[8]).shift(1.8*RIGHT)
+        c_11_1 = MathTex("-4", color=PINK).move_to(C_generica.get_entries()[0]).shift(1*LEFT)
+        c_12_1 = MathTex("-1", color=ORANGE).move_to(C_generica.get_entries()[1]).shift(0.5*LEFT)
+        c_13_1 = MathTex("-4", color=YELLOW).move_to(C_generica.get_entries()[2]).shift(1.8*RIGHT)
+        c_21_1 = MathTex("2", color=BLUE).move_to(C_generica.get_entries()[3]).shift(1*LEFT)
+        c_22_1 = MathTex("0", color=GREEN).move_to(C_generica.get_entries()[4]).shift(0.5*LEFT)
+        c_23_1 = MathTex("5", color=PURPLE).move_to(C_generica.get_entries()[5]).shift(1.8*RIGHT)
+        c_31_1 = MathTex("4", color=RED).move_to(C_generica.get_entries()[6]).shift(1*LEFT)
+        c_32_1 = MathTex("-6", color=GREY).move_to(C_generica.get_entries()[7]).shift(0.5*LEFT)
+        c_33_1 = MathTex("-2").move_to(C_generica.get_entries()[8]).shift(1.8*RIGHT)
 
         grupo_11_1 = VGroup()
         grupo_11_1.add(a_11_1, b_11_5, mais3_1)
@@ -405,40 +408,4 @@ class Matriz(MovingCameraScene):
 
         self.play(Transform(grupo_33_1, c_33_1))
 
-        self.wait(2)
-        # for n in range(3):
-        #     for i in range(3):
-
-        #         indice = (n*3+i)
-
-        #         elemento_A = A.get_entries()[indice]
-        #         elemento_B = B.get_entries()[indice]    
-
-        #         destaque_A = SurroundingRectangle(elemento_A, buff=0.08)
-        #         destaque_B = SurroundingRectangle(elemento_B, buff=0.08)
-
-        #         self.play(Create(destaque_A), Create(destaque_B), run_time = 2)
-
-        #         A_valor = valores_A[n][i]
-
-        #         B_valor = valores_B[n][i]
-
-        #         resultado_AB = A_valor + B_valor
-
-        #         adicao_matriz = MathTex(f'{A_valor} + {B_valor} = {resultado_AB}').shift(1*DOWN)
-
-        #         self.play(Transform(legenda_1, adicao_matriz))
-
-        #         elemento_antigo = C.get_entries()[indice]
-
-        #         resultado = valores_C[n][i]
-
-        #         elemento_novo = MathTex(str(resultado)).move_to(elemento_antigo)
-
-        #         self.play(ReplacementTransform(elemento_antigo, elemento_novo))
-
-        #         self.wait(1)
-
-        #         self.play(FadeOut(destaque_A), FadeOut(destaque_B))
-
-        self.wait(4)
+        self.wait(6)
