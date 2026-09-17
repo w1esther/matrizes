@@ -6,7 +6,7 @@ class ProdutoPorEscalar(MovingCameraScene):
         
         titulo = Text('Multiplicação de uma matriz por um escalar', font_size=32).shift(3*UP)
 
-        self.play(FadeIn(titulo))
+        self.play(Write(titulo))
 
         legenda_1 =  Tex(
             r" A multiplicação de uma matriz por um escalar consiste em multiplicar",
@@ -70,7 +70,7 @@ class ProdutoPorEscalar(MovingCameraScene):
 
         self.wait(1)
         
-        self.play(FadeIn(legenda_1))
+        self.play(Write(legenda_1), run_time = 4)
 
         m3 = MathTex(r'\dot').shift(0.8*UP + 1.2*RIGHT)
         m4 = MathTex(r'\dot').shift(0.8*UP + 3.3*RIGHT)
