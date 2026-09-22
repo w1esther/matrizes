@@ -63,6 +63,23 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
         A_generica = MobjectMatrix([
             [termo_matriz('a', 1, 1), termo_matriz('a', 1, 2), termo_matriz('a', 1, 3)],
             [termo_matriz('a', 2, 1), termo_matriz('a', 2, 2), termo_matriz('a', 2, 3)]]).shift(1*UP+6.6*LEFT)
+
+        a_11 = MathTex("a_{11}").move_to(A_generica.get_entries()[0])
+        a_12 = MathTex("a_{12}").move_to(A_generica.get_entries()[1])
+        a_13 = MathTex("a_{13}").move_to(A_generica.get_entries()[2])
+        a_21 = MathTex("a_{21}").move_to(A_generica.get_entries()[3])
+        a_22 = MathTex("a_{22}").move_to(A_generica.get_entries()[4])
+        a_23 = MathTex("a_{23}").move_to(A_generica.get_entries()[5])
+       
+
+        a_11_1 = MathTex("a_{11}").move_to(A_generica.get_entries()[0])
+        a_12_1 = MathTex("a_{12}").move_to(A_generica.get_entries()[1])
+        a_13_1 = MathTex("a_{13}").move_to(A_generica.get_entries()[2])
+        a_21_1 = MathTex("a_{21}").move_to(A_generica.get_entries()[3])
+        a_22_1 = MathTex("a_{22}").move_to(A_generica.get_entries()[4])
+        a_23_1 = MathTex("a_{23}").move_to(A_generica.get_entries()[5])
+
+        elementos_a = [a_12, a_13, a_22, a_23, a_11, a_21, a_12_1, a_13_1, a_22_1, a_23_1, a_11_1, a_21_1]
         
         multiplicacao_1 = MathTex(r'\dot').next_to(A_generica, RIGHT, buff=0.7)
         
@@ -70,6 +87,22 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
             [termo_matriz('b', 1, 1), termo_matriz('b', 1, 2)],
             [termo_matriz('b', 2, 1), termo_matriz('b', 2, 2)],
             [termo_matriz('b', 3, 1), termo_matriz('b', 3, 2)]], v_buff=0.75).shift(1*UP+1.9*LEFT)
+        
+        b_11 = MathTex("b_{11}").move_to(B_generica.get_entries()[0])
+        b_12 = MathTex("b_{12}").move_to(B_generica.get_entries()[1])
+        b_21 = MathTex("b_{21}").move_to(B_generica.get_entries()[2])
+        b_22 = MathTex("b_{22}").move_to(B_generica.get_entries()[3])
+        b_31 = MathTex("b_{31}").move_to(B_generica.get_entries()[4])
+        b_32 = MathTex("b_{32}").move_to(B_generica.get_entries()[5])
+
+        b_11_1 = MathTex("b_{11}").move_to(B_generica.get_entries()[0])
+        b_12_1 = MathTex("b_{12}").move_to(B_generica.get_entries()[1])
+        b_21_1 = MathTex("b_{21}").move_to(B_generica.get_entries()[2])
+        b_22_1 = MathTex("b_{22}").move_to(B_generica.get_entries()[3])
+        b_31_1 = MathTex("b_{31}").move_to(B_generica.get_entries()[4])
+        b_32_1 = MathTex("b_{32}").move_to(B_generica.get_entries()[5])
+
+        elementos_b = [b_12, b_22,b_31, b_32, b_11, b_21, b_12_1, b_22_1, b_31_1, b_32_1, b_11_1, b_21_1]
         
         igual_1 = MathTex(r'=').next_to(B_generica, RIGHT, buff=0.8)
         
@@ -83,5 +116,11 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
             entrada.set_opacity(0)
 
         self.play(FadeIn(A_generica), FadeIn(multiplicacao_1), FadeIn(B_generica), FadeIn(C_generica), FadeIn(igual_1))
+
+        for elemento in elementos_a:
+            self.add(elemento)
+
+        for elemento in elementos_b:
+            self.add(elemento)
 
         self.wait(2)
