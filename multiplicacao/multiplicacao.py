@@ -123,6 +123,8 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
         for elemento in elementos_b:
             self.add(elemento)
 
+        #teste
+
         legenda_5 = Tex(r'multiplica-se cada elemento de uma linha da primeira matriz pelos elementos correspondentes de uma coluna da segunda matriz e soma-se os resultados.').scale(0.85).shift(2*DOWN)
 
         self.play(Write(legenda_5))
