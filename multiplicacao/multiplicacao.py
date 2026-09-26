@@ -126,7 +126,7 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
         ], v_buff=0.75).next_to(legenda_5, DOWN, buff=0.7)
 
         mais3 = MathTex(r'\cdot', color=PINK).shift(1.6*DOWN + 4.6*LEFT)
-        mais4 = MathTex(r'\cdot', color=PINK).shift(1.6*DOWN + 2.7*LEFT)
+        mais4 = MathTex(r'\cdot', color=PINK).shift(1.6*DOWN + 2.6*LEFT)
         mais5 = MathTex(r'+', color=YELLOW).shift(1.8*UP + 6.6*RIGHT).scale(0.7)
 
         mais6 = MathTex(r'+', color=BLUE).shift(1*UP + 2.4*RIGHT).scale(0.7)
@@ -134,7 +134,7 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
         mais8 = MathTex(r'+', color=PURPLE).shift(1*UP + 6.6*RIGHT).scale(0.7)
 
         mais3_1 = MathTex(r'+', color=PINK).shift(1.6*DOWN + 3.6*LEFT).scale(0.7)
-        mais4_1 = MathTex(r'+', color=PINK).shift(1.6*DOWN + 1.4*LEFT).scale(0.7)
+        mais4_1 = MathTex(r'+', color=PINK).shift(1.6*DOWN + 1.6*LEFT).scale(0.7)
         mais5_1 = MathTex(r'+', color=YELLOW).shift(1.8*UP + 6.6*RIGHT).scale(0.7)
 
         mais6_1 = MathTex(r'+', color=BLUE).shift(1*UP + 2.4*RIGHT).scale(0.7)
