@@ -344,17 +344,30 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
         # MATRIZ RESULTANTE C
         # ==========================================================
 
+        # A matriz C usa células de tamanho controlado.
+        # Os termos serão colocados dentro dessas células
+        # durante a animação.
+
         C_generica = MobjectMatrix([
-             [MathTex(r"a_{11} \cdot b_{11} + a_{12} \cdot b_{21}) + a_{13} \cdot b_{31} + a_{12} \cdot b_{21})"), MathTex(r"a_{11} \cdot b_{11} + a_{12} \cdot b_{21}) + a_{13} \cdot b_{31} + a_{12} \cdot b_{21})")],
-            [MathTex(r"a_{11} \cdot b_{11} + a_{12} \cdot b_{21}) + a_{13} \cdot b_{31} + a_{12} \cdot b_{21})"), MathTex(r"a_{11} \cdot b_{11} + a_{12} \cdot b_{21}) + a_{13} \cdot b_{31} + a_{12} \cdot b_{21})")],
-            [MathTex(r"a_{11} \cdot b_{11} + a_{12} \cdot b_{21}) + a_{13} \cdot b_{31} + a_{12} \cdot b_{21})"), MathTex(r"a_{11} \cdot b_{11} + a_{12} \cdot b_{21}) + a_{13} \cdot b_{31} + a_{12} \cdot b_{21})")]
-        ], v_buff=0.75, h_buff=7.0).next_to(
+            [
+                MathTex(r"\phantom{a_{11}\cdot b_{11}+a_{12}\cdot b_{21}+a_{13}\cdot b_{31}}"),
+                MathTex(r"\phantom{a_{11}\cdot b_{12}+a_{12}\cdot b_{22}+a_{13}\cdot b_{32}}")
+            ],
+            [
+                MathTex(r"\phantom{a_{21}\cdot b_{11}+a_{22}\cdot b_{21}+a_{23}\cdot b_{31}}"),
+                MathTex(r"\phantom{a_{21}\cdot b_{12}+a_{22}\cdot b_{22}+a_{23}\cdot b_{32}}")
+            ],
+            [
+                MathTex(r"\phantom{a_{31}\cdot b_{11}+a_{32}\cdot b_{21}+a_{33}\cdot b_{31}}"),
+                MathTex(r"\phantom{a_{31}\cdot b_{12}+a_{32}\cdot b_{22}+a_{33}\cdot b_{32}}")
+            ]
+        ], v_buff=0.75).next_to(
             legenda_5,
             DOWN,
             buff=0.7
         )
 
-        # Esconde os elementos de C
+        # Esconde os elementos internos de C.
         for entrada in C_generica.get_entries():
             entrada.set_opacity(0)
 
@@ -388,206 +401,140 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
         self.wait(2)
 
         # ==========================================================
-        # POSICIONAMENTO DOS RESULTADOS
+        # FUNÇÃO PARA ANIMAR CADA ELEMENTO DA MATRIZ RESULTADO
         # ==========================================================
 
-        def animar_resultado(centro, termos, cor):
-            """
-            Monta visualmente:
-
-                a · b + a · b + a · b
-
-            dentro da célula correspondente da matriz C.
-
-            Os copies são usados somente para calcular as posições.
-            Assim, nenhum elemento real é colocado no mesmo ponto.
-            """
-
-            a1, b1, a2, b2, a3, b3 = termos
+        def animar_resultado(
+            centro,
+            a1, b1,
+            a2, b2,
+            a3, b3,
+            cor
+        ):
 
             # ------------------------------------------------------
-            # Símbolos da expressão
-            # ------------------------------------------------------
-
-            ponto_1 = MathTex(r'\cdot', color=cor)
-            ponto_2 = MathTex(r'\cdot', color=cor)
-            ponto_3 = MathTex(r'\cdot', color=cor)
-
-            mais_1 = MathTex(r'+', color=cor)
-            mais_2 = MathTex(r'+', color=cor)
-
-            # ------------------------------------------------------
-            # Grupo usado SOMENTE para calcular o layout.
+            # POSIÇÕES
             #
-            # Cada produto é organizado separadamente para deixar
-            # um pequeno espaço entre o elemento e o ponto.
-            # Os sinais de + recebem um espaço maior dos produtos.
-            # Nenhum objeto é redimensionado.
+            #       a1 · b1 + a2 · b2 + a3 · b3
+            #
+            # Tudo é distribuído em torno do centro da célula.
             # ------------------------------------------------------
 
-            produto_1 = VGroup(
-                a1.copy(),
-                ponto_1.copy(),
-                b1.copy()
-            ).arrange(
-                RIGHT,
-                buff=0.18
-            )
+            # Primeiro produto
+            pos_a1 = centro + 2.25 * LEFT
+            pos_b1 = centro + 1.55 * LEFT
+            pos_p1 = centro + 1.90 * LEFT
 
-            produto_2 = VGroup(
-                a2.copy(),
-                ponto_2.copy(),
-                b2.copy()
-            ).arrange(
-                RIGHT,
-                buff=0.10
-            )
+            # Segundo produto
+            pos_a2 = centro + 0.55 * LEFT
+            pos_b2 = centro + 0.10 * LEFT
+            pos_p2 = centro + 0.32 * LEFT
 
-            produto_3 = VGroup(
-                a3.copy(),
-                ponto_3.copy(),
-                b3.copy()
-            ).arrange(
-                RIGHT,
-                buff=0.10
-            )
+            # Terceiro produto
+            pos_a3 = centro + 1.15 * RIGHT
+            pos_b3 = centro + 1.85 * RIGHT
+            pos_p3 = centro + 1.50 * RIGHT
 
-            mais_1_layout = mais_1.copy()
-            mais_2_layout = mais_2.copy()
-
-            layout = VGroup(
-                produto_1,
-                mais_1_layout,
-                produto_2,
-                mais_2_layout,
-                produto_3
-            ).arrange(
-                RIGHT,
-                buff=0.28
-            )
-
-            # Mantém o tamanho original dos elementos.
-            layout.move_to(centro)
+            # Sinais de soma
+            pos_mais1 = centro + 0.90 * LEFT
+            pos_mais2 = centro + 0.82 * RIGHT
 
             # ------------------------------------------------------
-            # Guarda as posições individuais ANTES de mover os
-            # objetos reais.
-            # ------------------------------------------------------
-
-            posicoes = [
-                produto_1[0].get_center().copy(),
-                produto_1[1].get_center().copy(),
-                produto_1[2].get_center().copy(),
-                mais_1_layout.get_center().copy(),
-                produto_2[0].get_center().copy(),
-                produto_2[1].get_center().copy(),
-                produto_2[2].get_center().copy(),
-                mais_2_layout.get_center().copy(),
-                produto_3[0].get_center().copy(),
-                produto_3[1].get_center().copy(),
-                produto_3[2].get_center().copy()
-            ]
-
-            # ------------------------------------------------------
-            # Coloca os objetos reais na cena.
-            # ------------------------------------------------------
-
-            self.add(
-                a1, b1,
-                a2, b2,
-                a3, b3,
-                ponto_1, ponto_2, ponto_3,
-                mais_1, mais_2
-            )
-
-            # Símbolos começam no centro e invisíveis.
-            ponto_1.move_to(centro).set_opacity(0)
-            ponto_2.move_to(centro).set_opacity(0)
-            ponto_3.move_to(centro).set_opacity(0)
-            mais_1.move_to(centro).set_opacity(0)
-            mais_2.move_to(centro).set_opacity(0)
-
-            # ------------------------------------------------------
-            # Primeiro produto: a1 · b1
+            # PRIMEIRO PRODUTO
             # ------------------------------------------------------
 
             self.play(
                 a1.animate
-                .move_to(posicoes[0])
-                .set_color(cor),
+                .move_to(pos_a1)
+                .set_color(cor)
+                .scale(0.55),
 
                 b1.animate
-                .move_to(posicoes[2])
-                .set_color(cor),
-
-                run_time=0.8
+                .move_to(pos_b1)
+                .set_color(cor)
+                .scale(0.55)
             )
 
-            self.play(
-                ponto_1.animate
-                .move_to(posicoes[1])
-                .set_opacity(1),
+            ponto_1 = MathTex(
+                r'\cdot',
+                color=cor
+            ).scale(0.55).move_to(pos_p1)
 
-                run_time=0.25
+            self.play(
+                FadeIn(ponto_1)
             )
 
             # ------------------------------------------------------
-            # Segundo produto: + a2 · b2
+            # SEGUNDO PRODUTO
             # ------------------------------------------------------
 
             self.play(
-                mais_1.animate
-                .move_to(posicoes[3])
-                .set_opacity(1),
-
                 a2.animate
-                .move_to(posicoes[4])
-                .set_color(cor),
+                .move_to(pos_a2)
+                .set_color(cor)
+                .scale(0.55),
 
                 b2.animate
-                .move_to(posicoes[6])
-                .set_color(cor),
-
-                run_time=0.8
+                .move_to(pos_b2)
+                .set_color(cor)
+                .scale(0.55)
             )
 
-            self.play(
-                ponto_2.animate
-                .move_to(posicoes[5])
-                .set_opacity(1),
+            ponto_2 = MathTex(
+                r'\cdot',
+                color=cor
+            ).scale(0.55).move_to(pos_p2)
 
-                run_time=0.25
+            mais_1 = MathTex(
+                r'+',
+                color=cor
+            ).scale(0.55).move_to(pos_mais1)
+
+            self.play(
+                FadeIn(ponto_2),
+                FadeIn(mais_1)
             )
 
             # ------------------------------------------------------
-            # Terceiro produto: + a3 · b3
+            # TERCEIRO PRODUTO
             # ------------------------------------------------------
 
             self.play(
-                mais_2.animate
-                .move_to(posicoes[7])
-                .set_opacity(1),
-
                 a3.animate
-                .move_to(posicoes[8])
-                .set_color(cor),
+                .move_to(pos_a3)
+                .set_color(cor)
+                .scale(0.55),
 
                 b3.animate
-                .move_to(posicoes[10])
-                .set_color(cor),
-
-                run_time=0.8
+                .move_to(pos_b3)
+                .set_color(cor)
+                .scale(0.55)
             )
 
-            self.play(
-                ponto_3.animate
-                .move_to(posicoes[9])
-                .set_opacity(1),
+            ponto_3 = MathTex(
+                r'\cdot',
+                color=cor
+            ).scale(0.55).move_to(pos_p3)
 
-                run_time=0.25
+            mais_2 = MathTex(
+                r'+',
+                color=cor
+            ).scale(0.55).move_to(pos_mais2)
+
+            self.play(
+                FadeIn(ponto_3),
+                FadeIn(mais_2)
             )
 
             self.wait(1)
+
+            return VGroup(
+                a1, ponto_1, b1,
+                mais_1,
+                a2, ponto_2, b2,
+                mais_2,
+                a3, ponto_3, b3
+            )
 
         # ==========================================================
         # C11 - PINK
@@ -622,14 +569,25 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
             Create(destaque_B)
         )
 
-        animar_resultado(
-            C_generica.get_entries()[0].get_center(),
-            (
-                a_11_1, b_11_1,
-                a_12_1, b_21_1,
-                a_13_1, b_31_1
-            ),
+        centro_c11 = C_generica.get_entries()[0].get_center()
+
+        resultado_c11 = animar_resultado(
+            centro_c11,
+            a_11_1, b_11_1,
+            a_12_1, b_21_1,
+            a_13_1, b_31_1,
             PINK
+        )
+
+        self.wait(2)
+
+        # ==========================================================
+        # REMOVE DESTAQUES C11
+        # ==========================================================
+
+        self.play(
+            FadeOut(destaque_A),
+            FadeOut(destaque_B)
         )
 
         # ==========================================================
@@ -665,14 +623,21 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
             Create(destaque_B)
         )
 
-        animar_resultado(
-            C_generica.get_entries()[1].get_center(),
-            (
-                a_11_2, b_12_1,
-                a_12_2, b_22_1,
-                a_13_2, b_32_1
-            ),
+        centro_c12 = C_generica.get_entries()[1].get_center()
+
+        resultado_c12 = animar_resultado(
+            centro_c12,
+            a_11_2, b_12_1,
+            a_12_2, b_22_1,
+            a_13_2, b_32_1,
             BLUE
+        )
+
+        self.wait(2)
+
+        self.play(
+            FadeOut(destaque_A),
+            FadeOut(destaque_B)
         )
 
         # ==========================================================
@@ -708,18 +673,25 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
             Create(destaque_B)
         )
 
-        animar_resultado(
-            C_generica.get_entries()[2].get_center(),
-            (
-                a_21_1, b_11_2,
-                a_22_1, b_21_2,
-                a_23_1, b_31_2
-            ),
+        centro_c21 = C_generica.get_entries()[2].get_center()
+
+        resultado_c21 = animar_resultado(
+            centro_c21,
+            a_21_1, b_11_2,
+            a_22_1, b_21_2,
+            a_23_1, b_31_2,
             GREEN
         )
 
+        self.wait(2)
+
+        self.play(
+            FadeOut(destaque_A),
+            FadeOut(destaque_B)
+        )
+
         # ==========================================================
-        # C22 - PURPLE
+        # C22 - YELLOW
         # ==========================================================
 
         elemento_c22_A = VGroup(
@@ -737,13 +709,13 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
         destaque_A = SurroundingRectangle(
             elemento_c22_A,
             buff=0.08,
-            color=PURPLE
+            color=YELLOW
         )
 
         destaque_B = SurroundingRectangle(
             elemento_c22_B,
             buff=0.08,
-            color=PURPLE
+            color=YELLOW
         )
 
         self.play(
@@ -751,14 +723,21 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
             Create(destaque_B)
         )
 
-        animar_resultado(
-            C_generica.get_entries()[3].get_center(),
-            (
-                a_21_2, b_12_2,
-                a_22_2, b_22_2,
-                a_23_2, b_32_2
-            ),
-            PURPLE
+        centro_c22 = C_generica.get_entries()[3].get_center()
+
+        resultado_c22 = animar_resultado(
+            centro_c22,
+            a_21_2, b_12_2,
+            a_22_2, b_22_2,
+            a_23_2, b_32_2,
+            YELLOW
+        )
+
+        self.wait(2)
+
+        self.play(
+            FadeOut(destaque_A),
+            FadeOut(destaque_B)
         )
 
         # ==========================================================
@@ -794,18 +773,25 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
             Create(destaque_B)
         )
 
-        animar_resultado(
-            C_generica.get_entries()[4].get_center(),
-            (
-                a_31_1, b_11_3,
-                a_32_1, b_21_3,
-                a_33_1, b_31_3
-            ),
+        centro_c31 = C_generica.get_entries()[4].get_center()
+
+        resultado_c31 = animar_resultado(
+            centro_c31,
+            a_31_1, b_11_3,
+            a_32_1, b_21_3,
+            a_33_1, b_31_3,
             ORANGE
         )
 
+        self.wait(2)
+
+        self.play(
+            FadeOut(destaque_A),
+            FadeOut(destaque_B)
+        )
+
         # ==========================================================
-        # C32 - RED
+        # C32 - PURPLE
         # ==========================================================
 
         elemento_c32_A = VGroup(
@@ -823,13 +809,13 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
         destaque_A = SurroundingRectangle(
             elemento_c32_A,
             buff=0.08,
-            color=RED
+            color=PURPLE
         )
 
         destaque_B = SurroundingRectangle(
             elemento_c32_B,
             buff=0.08,
-            color=RED
+            color=PURPLE
         )
 
         self.play(
@@ -837,14 +823,21 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
             Create(destaque_B)
         )
 
-        animar_resultado(
-            C_generica.get_entries()[5].get_center(),
-            (
-                a_31_2, b_12_3,
-                a_32_2, b_22_3,
-                a_33_2, b_32_3
-            ),
-            RED
+        centro_c32 = C_generica.get_entries()[5].get_center()
+
+        resultado_c32 = animar_resultado(
+            centro_c32,
+            a_31_2, b_12_3,
+            a_32_2, b_22_3,
+            a_33_2, b_32_3,
+            PURPLE
         )
 
-        self.wait(3)
+        self.wait(2)
+
+        self.play(
+            FadeOut(destaque_A),
+            FadeOut(destaque_B)
+        )
+
+        self.wait(4)
