@@ -297,7 +297,7 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
         destaque_A = SurroundingRectangle(elemento_c12_A,buff=0.08,color=BLUE)
 
         destaque_B = SurroundingRectangle(elemento_c12_B,buff=0.08,color=BLUE)
-
+#########
         self.play(Create(destaque_A),Create(destaque_B))
 
         animar_resultado(
