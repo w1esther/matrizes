@@ -286,6 +286,8 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
             PINK
         )
 
+        self.play(FadeOut(destaque_A), FadeOut(destaque_B))
+
         # C12 - BLUE
 
         elemento_c12_A = VGroup(a_11,a_12,a_13)
@@ -307,6 +309,8 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
             ),
             BLUE
         )
+
+        self.play(FadeOut(destaque_A), FadeOut(destaque_B))
 
         # C21 - GREEN
 
@@ -330,6 +334,8 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
             GREEN
         )
 
+        self.play(FadeOut(destaque_A), FadeOut(destaque_B))
+
         # C22 - PURPLE
 
         elemento_c22_A = VGroup(a_21,a_22,a_23)
@@ -351,6 +357,8 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
             ),
             PURPLE
         )
+
+        self.play(FadeOut(destaque_A), FadeOut(destaque_B))
 
         # C31 - ORANGE
 
@@ -374,6 +382,8 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
             ORANGE
         )
 
+        self.play(FadeOut(destaque_A), FadeOut(destaque_B))
+
         # C32 - RED
 
         elemento_c32_A = VGroup(a_31,a_32,a_33)
@@ -395,5 +405,7 @@ class MultiplicacaoDeMatrizes(MovingCameraScene):
             ),
             RED
         )
+
+        self.play(FadeOut(destaque_A), FadeOut(destaque_B))
 
         self.wait(3)
